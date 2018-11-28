@@ -1,5 +1,8 @@
 package cn.rq.es.makeTestData;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class MakeDataUtils {
@@ -14,6 +17,8 @@ public class MakeDataUtils {
     private static final String[] emailSuffixsDefault = {"qq.com","sina.com","163.com"};
     private static final char[] alphabets = "abcdefghijklstrpqostuywxyz".toCharArray();
     private static final char[] numbers = "0123456789".toCharArray();
+    private static final String dateFormatDefault = "yyyy-MM-dd mm:hh:ss";
+    private static final String startDateDefault= "1900-01-01 00:00:00";
 
     /**
      * 造名字
@@ -110,6 +115,11 @@ public class MakeDataUtils {
         return address.toString();
     }
 
+    /**
+     * 随机生成一个邮件地址
+     * @param emailSuffixs 邮件后缀列表(qq.com,163.com,xxx.cn...),即 '@' 后的内容
+     * @return 邮件数据 格式为 ${随机 5-10 位数字} @ ${emailSuffixs中的随机一个值}
+     */
     public static String makeEmail(String[] emailSuffixs){
         if (emailSuffixs == null || emailSuffixs.length <= 0){
             emailSuffixs = emailSuffixsDefault;
@@ -123,9 +133,48 @@ public class MakeDataUtils {
         email.append("@"+emailSuffixs[random.nextInt(emailSuffixs.length)]);
         return email.toString();
     }
-    public static void main(String[] args) {
+
+
+    /**
+     * @param dateFormat 要返回的日期的格式
+     * @param startDateStr 日期的开始范围,要跟dateFormat匹配
+     * @param endDateStr 日期的结束范围,要跟dateFormat匹配
+     * @return 范围内的随机日期
+     * @throws ParseException 1.传入的startDateStr/endDateStr与dataFormat不匹配
+     *                        2.当传入的dataFormat的值不为:[yyyy-MM-dd hh:mm:ss],且未传入对应格式的startDateStr/endDateStr
+     */
+    public static String makeDate(String dateFormat,String startDateStr,String endDateStr) throws ParseException {
+        Date startDate;
+        Date endDate;
+        long startDateTimeStamp;
+        long endDateTimeStamp;
+        SimpleDateFormat simpleDateFormat;
+        if (dateFormat == null || "".equals(dateFormat)){
+            dateFormat = dateFormatDefault;
+        }
+        simpleDateFormat = new SimpleDateFormat(dateFormat);
+        if (startDateStr == null || "".equals(startDateStr)){
+            startDateStr = startDateDefault;
+        }
+        startDate = simpleDateFormat.parse(startDateStr);
+        startDateTimeStamp = startDate.getTime();
+        if (endDateStr != null && "".equals(endDateStr)){
+            endDate = simpleDateFormat.parse(endDateStr);
+            endDateTimeStamp = endDate.getTime();
+        }
+        else {
+            endDateTimeStamp = System.currentTimeMillis();
+        }
+        long realIntever = endDateTimeStamp - startDateTimeStamp;
+        long randomIntever = (long) (Math.random()*realIntever);
+        long finalTimeStamp = startDateTimeStamp + randomIntever;
+        Date finalDate = new Date(finalTimeStamp);
+        return simpleDateFormat.format(finalDate);
+    }
+    public static void main(String[] args) throws ParseException {
+        String[] emailSuffixs = {"qq.com"};
         for (int i = 0; i < 1000; i++) {
-            System.out.println(String.format("%s - %s - %s - %s - %s", makeName(null,null ,0 ),makeAge(0),makeSex(null),makeAddress(null,null,null, null ),makeEmail(null)));
+            System.out.println(String.format("%s - %s - %s - %s - %s - %s", makeName(null,null ,0 ),makeAge(0),makeSex(null),makeAddress(null,null,null, null ),makeEmail(emailSuffixs),makeDate(null, null, null)));
         }
     }
 }
