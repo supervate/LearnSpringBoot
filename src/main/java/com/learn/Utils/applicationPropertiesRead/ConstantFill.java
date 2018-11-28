@@ -44,29 +44,14 @@ public class ConstantFill {
                 //如果设置了profile属性,则读取对应的属性文件
                 String profileActive = (String) profileActiveObj;
                 if (StringUtils.isNotBlank(profileActive)) {
-                    switch (profileActive) {
-                        case "dev": {
-                            InputStream appstream_dev = classloader.getResourceAsStream("application-" + profileActive + ".properties");
-                            //如果配置文件不存在,则不加载
-                            if (appstream_dev != null){
-                                Properties apppro_dev = new Properties();
-                                apppro_dev.load(appstream_dev);
-                                //把application-dev.properties的属性存入map
-                                propertiesMap.putAll(apppro_dev);
-                                return propertiesMap;
-                            }
-                        }
-                        case "pro": {
-                            InputStream appstream_pro = classloader.getResourceAsStream("application-" + profileActive + ".properties");
-                            //如果配置文件不存在,则不加载
-                            if (appstream_pro != null){
-                                Properties apppro_pro = new Properties();
-                                apppro_pro.load(appstream_pro);
-                                //把application-pro.properties的属性存入map
-                                propertiesMap.putAll(apppro_pro);
-                                return propertiesMap;
-                            }
-                        }
+                    InputStream appStream_activiti = classloader.getResourceAsStream("application-" + profileActive + ".properties");
+                    //如果配置文件不存在,则不加载
+                    if (appStream_activiti != null){
+                        Properties appPro_activiti = new Properties();
+                        appPro_activiti.load(appStream_activiti);
+                        //把application-dev.properties的属性存入map
+                        propertiesMap.putAll(appPro_activiti);
+                        return propertiesMap;
                     }
                 }
 
