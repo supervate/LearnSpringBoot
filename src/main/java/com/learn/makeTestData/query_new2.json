@@ -1,0 +1,123 @@
+{
+  "casett": {
+    "type": "casett",
+    "scrollId":"DnF1ZXJ5VGhlbkZldGNoBQAAAAAAAAAuFlVaN3prZkQtUjllb0x2WkNUbWxZUmcAAAAAAAAALxZVWjd6a2ZELVI5ZW9MdlpDVG1sWVJnAAAAAAAAADAWVVo3emtmRC1SOWVvTHZaQ1RtbFlSZwAAAAAAAAAxFlVaN3prZkQtUjllb0x2WkNUbWxZUmcAAAAAAAAAMhZVWjd6a2ZELVI5ZW9MdlpDVG1sWVJn",
+    "query": {
+      "size":10,
+      "query":{
+        "bool": {
+          "filter": {
+            "bool": {
+              "must": [{"match_all":{}}]
+            }
+          }
+        }
+      }
+    },
+    "columns": [
+      "caseId",
+      "caseName"
+    ],
+    "allColumns": [
+      "caseId",
+      "caseName",
+      "f1",
+      "f2",
+      "f3",
+      "f4",
+      "f5",
+      "f6",
+      "f7",
+      "f8",
+      "f9",
+      "f10"
+    ],
+    "relationRole": "parent"
+  },
+  "casett_people_info": {
+    "type": "casett_people_info",
+    "query": {
+      "size":1000,
+      "query": {
+        "bool": {
+          "filter": {
+            "bool": {
+              "must": [{"match_all":{}}]
+            }
+          }
+        }
+      }
+    },
+    "columns": [
+      "caseId",
+      "peopleName"
+    ],
+    "allColumns": [
+      "caseId",
+      "peopleName",
+      "age",
+      "caseName",
+      "f1",
+      "f2",
+      "f3",
+      "f4",
+      "f5",
+      "f6",
+      "f7",
+      "f8",
+      "f9",
+      "f10"
+    ],
+    "relationRole": "child",
+    "relationFields": [
+      {
+        "parentField": "caseId",
+        "childField": "caseId"
+      },
+      {
+        "parentField": "caseName",
+        "childField": "caseName"
+      }
+    ]
+  },
+  "casett_info": {
+    "type": "casett_info",
+    "query": {
+      "size":1000,
+      "query": {
+        "bool": {
+          "filter": {
+            "bool": {
+              "must": [{"match_all":{}}]
+            }
+          }
+        }
+      }
+    },
+    "columns": [
+      "caseId",
+      "caseDescription"
+    ],
+    "allColumns": [
+      "caseId",
+      "caseDescription",
+      "f1",
+      "f2",
+      "f3",
+      "f4",
+      "f5",
+      "f6",
+      "f7",
+      "f8",
+      "f9",
+      "f10"
+    ],
+    "relationRole": "child",
+    "relationFields": [
+      {
+        "parentField": "caseId",
+        "childField": "caseId"
+      }
+    ]
+  }
+}

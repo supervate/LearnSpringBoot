@@ -1,0 +1,20 @@
+{
+  "mappings": {
+    "case_people_info": {
+      "properties": {
+        "caseId": {
+          "type": "keyword"
+        },
+        "caseName": {
+          "type": "keyword"
+        },
+        "peopleName": {
+          "type": "keyword"
+        },
+        "age": {
+          "type": "long"
+        }
+      }
+    }
+  }
+}
