@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
+@Setter
+@Getter
 public class Customer {
 
     @Id
@@ -12,6 +14,8 @@ public class Customer {
     private String firstName;
 
     private String lastName;
+
+    private CustomerAddress customerAddress;
 
     public Customer() {
     }

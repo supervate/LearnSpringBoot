@@ -1,12 +1,27 @@
 server:
-  port: 8080
+  port: 80
+mongodb:
+    usrname: admin
+    password: 123456
+    host: localhost
+    port: 27017
+    dbname: RestCloudAll
+    authSource: admin
+    authmechanism: SCRAM-SHA-1
 spring:
   data:
     mongodb:
-      authentication-database: admin
-      host: localhost
-      database: RestCloudAll
-      port: 27017
-      username: admin
-      password: 123456
+      uri: mongodb://${mongodb.usrname}:${mongodb.password}@${mongodb.host}:${mongodb.port}/${mongodb.dbname}?authSource=${mongodb.authSource}&authMechanism=${mongodb.authmechanism}
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:D:/h2/database
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
 #  quartz config

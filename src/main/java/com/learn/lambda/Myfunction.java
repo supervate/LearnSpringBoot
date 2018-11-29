@@ -1,4 +1,8 @@
 package com.learn.lambda;
 
-public class Myfunction {
+import java.util.Comparator;
+
+@FunctionalInterface
+public interface Myfunction<E> {
+    int compare(E o1, E o2);
 }

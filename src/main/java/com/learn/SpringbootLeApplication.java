@@ -1,55 +1,43 @@
 package com.learn;
 
-import com.learn.SpringBoot_MongoDb.Customer;
-import com.learn.SpringBoot_MongoDb.CustomerRepository;
+import com.learn.SpringBoot_Jpa.organization.dao.RoleRepository;
+import com.learn.SpringBoot_Jpa.organization.dao.UserDeptRepository;
+import com.learn.SpringBoot_Jpa.organization.dao.UserRepository;
+import com.learn.SpringBoot_Jpa.organization.dao.UserRoleRepository;
+import com.learn.SpringBoot_Jpa.organization.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.server.standard.ServerEndpointExporter;
-import sun.tools.jar.CommandLine;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 //@EnableWebSocket
+@EnableJpaRepositories(basePackages = {"com.learn.SpringBoot_Jpa"})
 public class SpringbootLeApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		Customer customer = new Customer();
 		SpringApplication.run(SpringbootLeApplication.class, args);
 	}
 
+//	@Autowired
+//	private CustomerRepository repository;
+//	@Autowired
+//	MongoClient mongoClient;
 	@Autowired
-	private CustomerRepository repository;
-
+	UserRepository userRepository;
+	@Autowired
+	UserRoleRepository userRoleRepository;
+	@Autowired
+	RoleRepository roleRepository;
+	@Autowired
+	UserDeptRepository userDeptRepository;
 	@Override
 	public void run(String... args) throws Exception {
-		this.repository.deleteAll();
-
-		// save a couple of customers
-		this.repository.save(new Customer("Alice", "Smith"));
-		this.repository.save(new Customer("Bob", "Smith"));
-
-		// fetch all customers
-		System.out.println("Customers found with findAll():");
-		System.out.println("-------------------------------");
-		for (Customer customer : this.repository.findAll()) {
-			System.out.println(customer);
-		}
-		System.out.println();
-
-		// fetch an individual customer
-		System.out.println("Customer found with findByFirstName('Alice'):");
-		System.out.println("--------------------------------");
-		System.out.println(this.repository.findByFirstName("Alice"));
-
-		System.out.println("Customers found with findByLastName('Smith'):");
-		System.out.println("--------------------------------");
-		for (Customer customer : this.repository.findByLastName("Smith")) {
-			System.out.println(customer);
-		}
+		userRepository.save(new User("a","123456"));
+		userRepository.save(new User("b","123456"));
+		userRepository.save(new User("c","123456"));
+		userRepository.save(new User("a","123456"));
 	}
 
 	/**

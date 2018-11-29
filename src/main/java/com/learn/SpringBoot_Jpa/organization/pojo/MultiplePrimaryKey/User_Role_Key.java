@@ -1,9 +1,7 @@
-package com.learn.SpringBoot_Jpa.organization.pojo;
+package com.learn.SpringBoot_Jpa.organization.pojo.MultiplePrimaryKey;
 
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,11 +9,11 @@ import java.util.Objects;
 public class User_Role_Key implements Serializable {
 
     private String userId;
-    private String RoleId;
+    private String roleId;
 
     @Override
     public int hashCode() {
-        return (Objects.isNull(userId)? 0 : userId.hashCode()) + (Objects.isNull(RoleId) ? 0 : RoleId.hashCode());
+        return (Objects.isNull(userId)? 0 : userId.hashCode()) + (Objects.isNull(roleId) ? 0 : roleId.hashCode());
     }
 
     @Override
@@ -29,10 +27,10 @@ public class User_Role_Key implements Serializable {
         }else {
             if (!this.userId.equals(other.getUserId())) return false;
         }
-        if (this.RoleId == null){
+        if (this.roleId == null){
             if (other.getRoleId() != null) return false;
         }else {
-            if (!this.RoleId.equals(other.getRoleId())) return false;
+            if (!this.roleId.equals(other.getRoleId())) return false;
         }
         return true;
     }
