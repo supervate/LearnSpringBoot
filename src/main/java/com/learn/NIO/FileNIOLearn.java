@@ -1,10 +1,15 @@
 package com.learn.NIO;
 
 import javafx.scene.shape.CircleBuilder;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 
 public class FileNIOLearn {
@@ -39,16 +44,16 @@ public class FileNIOLearn {
 //        String s = new String(b2.array(),"gb2312");
 //        System.out.println(s);
 //        }
-        String def = new String();
-        String iso8859 = new String("bianma".getBytes("ISO-8859-1"),"ISO-8859-1");
-        String gb2312 = new String("编码".getBytes("gb2312"),"gb2312");
-        String gbk = new String("编码".getBytes("gbk"),"gbk");
-        String utf8 = new String("编码".getBytes("utf8"));
-        System.out.println(iso8859);
-        System.out.println(gb2312);
-        System.out.println(new String(gb2312.getBytes(),"utf-8"));
-        System.out.println(gbk);
-
+//        String def = new String();
+//        String iso8859 = new String("bianma".getBytes("ISO-8859-1"),"ISO-8859-1");
+//        String gb2312 = new String("编码".getBytes("gb2312"),"gb2312");
+//        String gbk = new String("编码".getBytes("gbk"),"gbk");
+//        String utf8 = new String("编码".getBytes("utf8"));
+//        System.out.println(iso8859);
+//        System.out.println(gb2312);
+//        System.out.println(new String(gb2312.getBytes(),"utf-8"));
+//        System.out.println(gbk);
+        FileToBinnaryStrFile("D:\\database.trace.db");
     }
 
     public static String byteArrayToStr(byte[] objs){
@@ -62,19 +67,29 @@ public class FileNIOLearn {
 
     public static void FileToBinnaryStrFile(String filepath) throws IOException {
         File sourcefile = new File(filepath);
-        FileInputStream sourcefilein = new FileInputStream(sourcefile);
-        FileOutputStream file_binnary = new FileOutputStream(new File(sourcefile.getParentFile().getPath()+"/"+sourcefile.getName().substring(0,sourcefile.getName().lastIndexOf(".")))+"_binarry.txt",true);
-        FileChannel fic = sourcefilein.getChannel();
-        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-        float totalsize = sourcefilein.available();
+        FileChannel fic = FileChannel.open(Paths.get(filepath),StandardOpenOption.READ);
+        FileChannel foc = FileChannel.open(Paths.get("D:\\database.trace.db_binarry.txt"), StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(24);
+        ByteBuffer byteBufferOut = ByteBuffer.allocate(100);
+        float totalsize = fic.size();
         float readedsize = 0l;
         int readcount=0;
         while ((readcount=fic.read(byteBuffer))!=-1){
-            file_binnary.write(byteArrayToStr(byteBuffer.array()).getBytes());
-            file_binnary.write(System.lineSeparator().getBytes());
-            byteBuffer.clear();
+            byteBufferOut.clear();
+            byteBufferOut.put(byteArrayToStr(readBytes(byteBuffer)).getBytes());
+            byteBufferOut.put(System.lineSeparator().getBytes());
+            byteBufferOut.flip();
+            foc.write(byteBufferOut);
             readedsize += readcount;
             System.out.println("当前进度为: " + (readedsize / totalsize) * 100l +"%");
         }
+    }
+    public static byte[] readBytes(ByteBuffer byteBuffer){
+        byteBuffer.flip();
+        int dataCount = byteBuffer.limit();
+        byte[] data = new byte[dataCount];
+        byteBuffer.get(data);
+        byteBuffer.clear();
+        return data;
     }
 }

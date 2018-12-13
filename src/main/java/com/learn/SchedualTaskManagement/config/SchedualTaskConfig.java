@@ -11,12 +11,4 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SchedualTaskConfig {
 
-    @Bean
-    public Scheduler newQuartzScheduler() throws SchedulerException {
-        SchedulerFactory schedulerFactoryBean = new StdSchedulerFactory();
-        return schedulerFactoryBean.getScheduler();
-    }
-
-
-
 }

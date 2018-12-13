@@ -1,4 +1,4 @@
-package cn.rq.es.makeTestData;
+package com.learn.makeTestData;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,8 +17,8 @@ public class MakeDataUtils {
     private static final String[] emailSuffixsDefault = {"qq.com","sina.com","163.com"};
     private static final char[] alphabets = "abcdefghijklstrpqostuywxyz".toCharArray();
     private static final char[] numbers = "0123456789".toCharArray();
-    private static final String dateFormatDefault = "yyyy-MM-dd mm:hh:ss";
-    private static final String startDateDefault= "1900-01-01 00:00:00";
+    private static final String DATE_FORMAT_DEFAULT = "yyyy-MM-dd mm:hh:ss";
+    private static final String DATE_START_DEFAULT= "1900-01-01 00:00:00";
 
     /**
      * 造名字
@@ -28,13 +28,15 @@ public class MakeDataUtils {
      *              如果所传值为0则采用默认策略,默认会随机为 2 或 3
      * @return 随机生成的名字
      */
-    public static String makeName(String[] lastName,String[] firstName,int count){
+    public static String makeName(String[] lastName, String[] firstName, int count){
         if (lastName == null || lastName.length == 0){
             lastName = lastNameDefault;
         }
+
         if (firstName == null || firstName.length == 0){
             firstName = firstNameDefault;
         }
+
         StringBuilder name = new StringBuilder();
         Random random = new Random();
         if (count == 0){
@@ -53,6 +55,7 @@ public class MakeDataUtils {
                 name.append(firstName[random.nextInt(firstName.length)]);
             }
         }
+
         return name.toString();
     }
 
@@ -62,7 +65,7 @@ public class MakeDataUtils {
      * @return 年龄
      */
     public static int makeAge(int maxAge){
-        if (maxAge <= 0 ){
+        if (maxAge <= 0){
             maxAge = 100;
         }
         Random random = new Random();
@@ -90,7 +93,7 @@ public class MakeDataUtils {
      * @param street 所有街道的列表
      * @return 返回一个 province + city + town + street的地址数据
      */
-    public static String makeAddress(String[] province,String[] city,String[] town,String[] street){
+    public static String makeAddress(String[] province, String[] city, String[] town, String[] street){
         StringBuilder address = new StringBuilder();
         Random random = new Random();
         if (province == null || province.length <= 0){
@@ -143,26 +146,25 @@ public class MakeDataUtils {
      * @throws ParseException 1.传入的startDateStr/endDateStr与dataFormat不匹配
      *                        2.当传入的dataFormat的值不为:[yyyy-MM-dd hh:mm:ss],且未传入对应格式的startDateStr/endDateStr
      */
-    public static String makeDate(String dateFormat,String startDateStr,String endDateStr) throws ParseException {
+    public static String makeDate(String dateFormat, String startDateStr, String endDateStr) throws ParseException {
         Date startDate;
         Date endDate;
         long startDateTimeStamp;
         long endDateTimeStamp;
         SimpleDateFormat simpleDateFormat;
-        if (dateFormat == null || "".equals(dateFormat)){
-            dateFormat = dateFormatDefault;
+        if (dateFormat == null || "".equals(dateFormat)) {
+            dateFormat = DATE_FORMAT_DEFAULT;
         }
         simpleDateFormat = new SimpleDateFormat(dateFormat);
-        if (startDateStr == null || "".equals(startDateStr)){
-            startDateStr = startDateDefault;
+        if (startDateStr == null || "".equals(startDateStr)) {
+            startDateStr = DATE_START_DEFAULT;
         }
         startDate = simpleDateFormat.parse(startDateStr);
         startDateTimeStamp = startDate.getTime();
-        if (endDateStr != null && "".equals(endDateStr)){
+        if (endDateStr != null && "".equals(endDateStr)) {
             endDate = simpleDateFormat.parse(endDateStr);
             endDateTimeStamp = endDate.getTime();
-        }
-        else {
+        } else {
             endDateTimeStamp = System.currentTimeMillis();
         }
         long realIntever = endDateTimeStamp - startDateTimeStamp;
@@ -171,6 +173,7 @@ public class MakeDataUtils {
         Date finalDate = new Date(finalTimeStamp);
         return simpleDateFormat.format(finalDate);
     }
+
     public static void main(String[] args) throws ParseException {
         String[] emailSuffixs = {"qq.com"};
         for (int i = 0; i < 1000; i++) {

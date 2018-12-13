@@ -1,10 +1,6 @@
 package com.learn;
 
-import com.learn.SpringBoot_Jpa.organization.dao.RoleRepository;
-import com.learn.SpringBoot_Jpa.organization.dao.UserDeptRepository;
-import com.learn.SpringBoot_Jpa.organization.dao.UserRepository;
-import com.learn.SpringBoot_Jpa.organization.dao.UserRoleRepository;
-import com.learn.SpringBoot_Jpa.organization.pojo.User;
+import com.learn.makeTestData.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,8 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 //@EnableWebSocket
-@EnableJpaRepositories(basePackages = {"com.learn.SpringBoot_Jpa"})
-public class SpringbootLeApplication implements CommandLineRunner {
+@EnableJpaRepositories(basePackages = {"com.learn"})
+public class SpringbootLeApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootLeApplication.class, args);
@@ -24,21 +20,13 @@ public class SpringbootLeApplication implements CommandLineRunner {
 //	private CustomerRepository repository;
 //	@Autowired
 //	MongoClient mongoClient;
-	@Autowired
-	UserRepository userRepository;
-	@Autowired
-	UserRoleRepository userRoleRepository;
-	@Autowired
-	RoleRepository roleRepository;
-	@Autowired
-	UserDeptRepository userDeptRepository;
-	@Override
-	public void run(String... args) throws Exception {
-		userRepository.save(new User("a","123456"));
-		userRepository.save(new User("b","123456"));
-		userRepository.save(new User("c","123456"));
-		userRepository.save(new User("a","123456"));
-	}
+//	@Override
+//	public void run(String... args) throws Exception {
+//		userRepository.save(new User("a","123456"));
+//		userRepository.save(new User("b","123456"));
+//		userRepository.save(new User("c","123456"));
+//		userRepository.save(new User("a","123456"));
+//	}
 
 	/**
 	 * 会自动注册使用了@ServerEndpoint注解声明的Websocket endpoint
