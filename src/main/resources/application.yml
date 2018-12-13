@@ -22,6 +22,6 @@ spring:
     url: jdbc:h2:D:/h2/database
     driver-class-name: org.h2.Driver
     username: sa
-    password:
+    password: 123
 
 #  quartz config
