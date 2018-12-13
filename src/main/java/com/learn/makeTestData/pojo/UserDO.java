@@ -13,7 +13,7 @@ public class UserDO {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid",strategy = "uuid")
-    private Integer id;
+    private String id;
 
     private String userName;
 

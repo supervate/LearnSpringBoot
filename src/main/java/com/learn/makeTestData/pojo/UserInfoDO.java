@@ -9,14 +9,14 @@ import javax.persistence.*;
 @Table(name = "UserInfo")
 public class UserInfoDO {
     @Id
-    private Integer userId;
+    private String userId;
     private String nickName;
     private Integer age;
     private String sex;
     private String address;
     private String email;
 
-    public UserInfoDO(Integer userId, String nickName, Integer age, String sex, String address, String email) {
+    public UserInfoDO(String userId, String nickName, Integer age, String sex, String address, String email) {
         this.userId = userId;
         this.nickName = nickName;
         this.age = age;
