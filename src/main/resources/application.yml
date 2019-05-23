@@ -19,9 +19,12 @@ spring:
       settings:
         web-allow-others: true
   datasource:
-    url: jdbc:h2:D:/h2/database
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: 123
-
+    url: jdbc:mysql://192.168.31.221:3306/mybatis
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
 #  quartz config

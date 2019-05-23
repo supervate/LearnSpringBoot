@@ -5,7 +5,7 @@ import lombok.ToString;
 
 @Data
 @ToString
-public class ResponseMessage {
+public class ResponseMessage{
 
     public ResponseMessage(Object data, String status, String errorinfo) {
         this.data = data;
